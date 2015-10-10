@@ -1,0 +1,36 @@
+# Maintainer : Kazumi Moriya <kuroclef@gmail.com>
+
+pkgname=ttf-ricty
+pkgver=latest
+pkgrel=1
+pkgdesc='Fonts for programming.'
+arch=(any)
+url=https://github.com/kuroclef/Ricty
+license=(custom)
+depends=(fontconfig xorg-font-utils)
+makedepends=(fontforge git)
+_miguver=20150712
+source=(git://github.com/kuroclef/Ricty.git
+        Inconsolata.zip::https://fonts.google.com/download?family=Inconsolata
+        http://dl.osdn.jp/mix-mplus-ipa/63545/migu-1m-"$_miguver".zip)
+md5sums=(SKIP
+         SKIP
+         80046949f85da8177d6f1bb319f744f8)
+
+pkgver() {
+  cd Ricty
+  printf %s "$(./ricty_generator.sh -V | head -1 | cut -d\  -f3)"
+}
+
+build() {
+  cd Ricty
+  mv ..{,/migu-1m-"$_miguver"}/*.ttf .
+  ./ricty_generator.sh auto
+}
+
+package() {
+  cd Ricty
+  install -d                  "$pkgdir"/usr/share/fonts/TTF
+  install -m  644 Ricty-*.ttf "$pkgdir"/usr/share/fonts/TTF
+  install -Dm 644 README.md   "$pkgdir"/usr/share/doc/"$pkgname"/README.md
+}

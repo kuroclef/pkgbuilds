@@ -1,0 +1,20 @@
+# Maintainer : Kazumi Moriya <kuroclef@gmail.com>
+
+pkgname=ttf-koruri
+pkgver=20161105
+pkgrel=1
+pkgdesc='Japanese TrueType font obtained by mixing M+ FONTS and Open Sans.'
+arch=(any)
+url=http://koruri.lindwurm.biz/
+license=(Apache)
+depends=(fontconfig xorg-font-utils)
+source=(http://dl.osdn.jp/koruri/66647/Koruri-20161105.tar.xz)
+md5sums=(4fa941081153bc1e35b08fea11fe7926)
+
+package() {
+  cd Koruri-"$pkgver"
+  install -d                "$pkgdir"/usr/share/fonts/TTF
+  install -m  644 *.ttf     "$pkgdir"/usr/share/fonts/TTF
+  install -Dm 644 LICENSE   "$pkgdir"/usr/share/licenses/"$pkgname"/LICENSE
+  install -Dm 644 README.md "$pkgdir"/usr/share/doc/"$pkgname"/README.md
+}
