@@ -1,0 +1,23 @@
+# Maintainer : Kazumi Moriya <kuroclef@gmail.com>
+
+pkgname=epson-inkjet-printer-escpr
+pkgver=1.6.12
+pkgrel=1
+pkgdesc='Epson Inkjet Printer Driver (ESC/P-R)'
+arch=(i686 x86_64)
+url=http://download.ebz.epson.net/dsc/search/01/search/
+license=(GPL2)
+depends=(cups ghostscript nss-mdns)
+source=(https://download3.ebz.epson.net/dsc/f/03/00/05/46/21/01534966894f35247dac8c8ef0a0a9c94d1c8b40/epson-inkjet-printer-escpr-1.6.12-1lsb3.2.tar.gz)
+md5sums=(fddedddd1424402d8ec8297536c751a0)
+
+build() {
+  cd "$pkgname"-"$pkgver"
+  ./configure --prefix=/usr
+  make
+}
+
+package() {
+  cd "$pkgname"-"$pkgver"
+  make DESTDIR=$pkgdir install
+}
