@@ -1,0 +1,31 @@
+# Maintainer : Kazumi Moriya <kuroclef@gmail.com>
+
+pkgname=uim-git
+pkgver=latest
+pkgrel=1
+pkgdesc='A multilingual input method framework.'
+arch=(x86_64)
+url=https://github.com/uim/uim
+license=(custom)
+depends=(gtk2 gtk3)
+makedepends=(ed git intltool librsvg ruby)
+provides=("${pkgname%-git}")
+conflicts=("${pkgname%-git}")
+source=(git://github.com/uim/uim.git)
+md5sums=(SKIP)
+
+pkgver() {
+  cd "${pkgname%-git}"
+  printf %s "$(date -I -ud "$(git log -1 --format=%ci)" | tr -d -)"
+}
+
+build() {
+  cd "${pkgname%-git}"
+  ./make-wc.sh --prefix=/usr
+  make
+}
+
+package() {
+  cd "${pkgname%-git}"
+  make DESTDIR=$pkgdir install
+}
