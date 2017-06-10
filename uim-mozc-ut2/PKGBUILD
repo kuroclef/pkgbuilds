@@ -1,0 +1,42 @@
+# Maintainer : Kazumi Moriya <kuroclef@gmail.com>
+
+pkgname=uim-mozc-ut2
+pkgver=2.20.2677.102.20170529
+pkgrel=1
+pkgdesc='A Japanese Input Method Editor designed for multi-platform.'
+arch=(x86_64)
+url=http://www.geocities.jp/ep3797/mozc-ut2.html
+license=(custom)
+depends=(qt5-base uim zinnia)
+makedepends=(clang ninja python2)
+provides=("${pkgname#uim-}")
+conflicts=("${pkgname#uim-}")
+source=(http://dl.osdn.jp/users/11/11939/mozc-ut2-2.20.2677.102.20170529.tar.xz
+        git://github.com/e-kato/macuim.git)
+md5sums=(2fdf9c756fbe0f2de9bd0dd1f5772360
+         SKIP)
+
+prepare() {
+  cd "${pkgname#uim-}"-"$pkgver"/src
+  find . -name  '*.py'       -type f -exec sed -i '1s/python/python2/'     {} \;
+  find . -regex '.*\.gypi?$' -type f -exec sed -i "s/'python'/'python2'/g" {} \;
+  mv "$srcdir"/macuim/Mozc/uim unix
+}
+
+build() {
+  cd "${pkgname#uim-}"-"$pkgver"/src
+  GYP_DEFINES=document_dir=/usr/share/licenses/"${pkgname#uim-}" python2 build_mozc.py gyp --target_platform=Linux
+  python2 build_mozc.py build -c Release unix/uim/uim.gyp:uim-mozc server/server.gyp:mozc_server gui/gui.gyp:mozc_tool
+}
+
+package() {
+  cd "${pkgname#uim-}"-"$pkgver"/src
+  mkdir -p "$pkgdir"/usr/share/licenses/"${pkgname#uim-}"
+  mkdir -p "$pkgdir"/usr/share/uim
+  mv       ../LICENSE data/installer/*.html "$pkgdir"/usr/share/licenses/"${pkgname#uim-}"
+  cp    -r "$srcdir"/../{pixmaps,scm/*}     "$pkgdir"/usr/share/uim
+
+  install -Dm 755 out_linux/Release/mozc_server    "$pkgdir"/usr/lib/mozc/mozc_server
+  install -Dm 755 out_linux/Release/mozc_tool      "$pkgdir"/usr/lib/mozc/mozc_tool
+  install -Dm 755 out_linux/Release/libuim-mozc.so "$pkgdir"/usr/lib/uim/plugin/libuim-mozc.so
+}
