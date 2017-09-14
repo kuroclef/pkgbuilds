@@ -7,7 +7,7 @@ pkgdesc='LPR and CUPS driver for the Brother MFC-6490CN.'
 arch=(x86_64)
 url=http://support.brother.co.jp/j/b/downloadlist.aspx?prod=mfc6490cn&os=127
 license=(custom)
-depends=(cups ghostscript nss-mdns lib32-glibc)
+depends=(cups ghostscript gtk3-print-backends nss-mdns poppler-data lib32-glibc)
 source=(http://download.brother.com/welcome/dlf100654/mfc6490cnlpr-1.1.2-2.i386.rpm
         http://download.brother.com/welcome/dlf100659/mfc6490cncupswrapper-1.1.2-2.i386.rpm)
 md5sums=(26f56bd44499295608ae60341f042336
