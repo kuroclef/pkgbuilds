@@ -1,7 +1,7 @@
 # Maintainer : Kazumi Moriya <kuroclef@gmail.com>
 
 pkgname=uim-mozc-ut2
-pkgver=2.20.2677.102.20170529
+pkgver=2.20.2677.102.20171008
 pkgrel=1
 pkgdesc='A Japanese Input Method Editor designed for multi-platform.'
 arch=(x86_64)
@@ -11,9 +11,9 @@ depends=(qt5-base uim zinnia)
 makedepends=(clang ninja python2)
 provides=("${pkgname#uim-}")
 conflicts=("${pkgname#uim-}")
-source=(http://dl.osdn.jp/users/11/11939/mozc-ut2-2.20.2677.102.20170529.tar.xz
+source=(http://dl.osdn.jp/users/16/16040/mozc-ut2-2.20.2677.102.20171008.tar.xz
         git://github.com/e-kato/macuim.git)
-md5sums=(2fdf9c756fbe0f2de9bd0dd1f5772360
+md5sums=(bf3090f28c02c2ca67cb017bf6b87265
          SKIP)
 
 prepare() {
