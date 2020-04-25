@@ -1,40 +1,47 @@
 # Maintainer : Kazumi Moriya <kuroclef@gmail.com>
 
 pkgname=ibus-mozc-neologd-ut
-pkgver=2.23.2815.102.20191125
+_pkgver=2.23.2815.102
+_date=20200315
+pkgver="$_pkgver"."$_date"
 pkgrel=1
 pkgdesc='A Japanese Input Method Editor designed for multi-platform.'
 arch=(x86_64)
 url=http://linuxplayers.g1.xrea.com/mozc-neologd-ut.html
 license=(custom)
-depends=(ibus qt5-base)
-makedepends=(clang fcitx gtk2 ninja python2 zinnia)
+depends=(ibus protobuf qt5-base)
+makedepends=(clang fcitx gtk2 gyp python zinnia)
 provides=("${pkgname#ibus-}")
 conflicts=("${pkgname#ibus-}")
-source=(http://dl.osdn.jp/users/24/24949/mozc-neologd-ut-2.23.2815.102.20191125.1.tar.xz
+source=(http://deb.debian.org/debian/pool/main/m/mozc/mozc_"$_pkgver"+dfsg.orig.tar.xz
+        http://dl.osdn.jp/users/25/25485/mozcdic-neologd-ut-20200315.1.tar.bz2
         add-new-japanese-era.patch
-        fix-for-gcc81.patch)
-md5sums=(5bab38e5c2c438376b5eb96a49b22992
+        fix-for-gcc81.patch
+        mozc-2.23.2815.102-python-3.patch)
+md5sums=(f0556ea6060afd5f0edfce2c208d53dc
+         4d0e18328edd6d556d24581a0cef6196
          bf171fb519b59917f46222f832912599
-         8433e14c819d2f41e33f4c5e4412515a)
+         8433e14c819d2f41e33f4c5e4412515a
+         57458407fb750a0c63f967efb04b6118)
 
 prepare() {
-  cd "${pkgname#ibus-}"-"$pkgver"."$pkgrel"/src
+  cd mozc-"$_pkgver"+dfsg/src
   patch -Np2 -i "$srcdir"/add-new-japanese-era.patch
   patch -Np2 -i "$srcdir"/fix-for-gcc81.patch
-  find . -name  '*.py'       -type f -exec sed -i '1s/python/python2/'     {} \;
-  find . -regex '.*\.gypi?$' -type f -exec sed -i "s/'python'/'python2'/g" {} \;
+  patch -Np2 -i "$srcdir"/mozc-2.23.2815.102-python-3.patch
+  cat "$srcdir"/mozcdic-neologd-ut-"$_date"."$pkgrel"/mozcdic-*-ut-*.txt >> data/dictionary_oss/dictionary00.txt
+  ln -srnf "$srcdir"/../third_party .
 }
 
 build() {
-  cd "${pkgname#ibus-}"-"$pkgver"."$pkgrel"/src
-  GYP_DEFINES=document_dir=/usr/share/licenses/"${pkgname#ibus-}" python2 build_mozc.py gyp --target_platform=Linux
-  python2 build_mozc.py build -c Release unix/ibus/ibus.gyp:ibus_mozc server/server.gyp:mozc_server gui/gui.gyp:mozc_tool renderer/renderer.gyp:mozc_renderer
+  cd mozc-"$_pkgver"+dfsg/src
+  GYP_DEFINES='document_dir=/usr/share/licenses/mozc use_libprotobuf=1 use_libzinnia=1' python build_mozc.py gyp --gypdir=/usr/bin --target_platform=Linux
+  python build_mozc.py build -c Release unix/ibus/ibus.gyp:ibus_mozc server/server.gyp:mozc_server gui/gui.gyp:mozc_tool renderer/renderer.gyp:mozc_renderer
   sed -i 's|/usr/libexec/|/usr/lib/ibus-mozc/|g' out_linux/Release/gen/unix/ibus/mozc.xml
 }
 
 package() {
-  cd "${pkgname#ibus-}"-"$pkgver"."$pkgrel"/src
+  cd mozc-"$_pkgver"+dfsg/src
   mkdir -p "$pkgdir"/usr/share/licenses/"${pkgname#ibus-}"
   mv       ../LICENSE data/installer/*.html "$pkgdir"/usr/share/licenses/"${pkgname#ibus-}"
 
