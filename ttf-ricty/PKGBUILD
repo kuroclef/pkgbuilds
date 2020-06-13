@@ -8,13 +8,11 @@ arch=(any)
 url=https://github.com/kuroclef/Ricty
 license=(custom)
 depends=(fontconfig xorg-font-utils)
-makedepends=(fontforge git)
+makedepends=(fontforge git ttf-inconsolata)
 _miguver=20150712
 source=(git://github.com/kuroclef/Ricty.git
-        Inconsolata.zip::https://fonts.google.com/download?family=Inconsolata
         http://dl.osdn.jp/mix-mplus-ipa/63545/migu-1m-"$_miguver".zip)
 md5sums=(SKIP
-         SKIP
          80046949f85da8177d6f1bb319f744f8)
 
 pkgver() {
@@ -24,7 +22,7 @@ pkgver() {
 
 build() {
   cd Ricty
-  mv ..{,/migu-1m-"$_miguver"}/*.ttf .
+  mv ../migu-1m-"$_miguver"/*.ttf .
   ./ricty_generator.sh auto
 }
 
