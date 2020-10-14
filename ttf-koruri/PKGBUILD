@@ -7,7 +7,6 @@ pkgdesc='Japanese TrueType font obtained by mixing M+ FONTS and Open Sans.'
 arch=(any)
 url=http://koruri.lindwurm.biz/
 license=(Apache)
-depends=(fontconfig xorg-font-utils)
 source=(https://github.com/Koruri/Koruri/releases/download/Koruri-"$pkgver"/Koruri-"$pkgver".tar.xz)
 md5sums=(1e4af5d50c261b9a9173be98bd147342)
 

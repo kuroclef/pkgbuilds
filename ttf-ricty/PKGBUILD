@@ -1,13 +1,12 @@
 # Maintainer : Kazumi Moriya <kuroclef@gmail.com>
 
 pkgname=ttf-ricty
-pkgver=latest
+pkgver=4.1.1b
 pkgrel=1
 pkgdesc='Fonts for programming.'
 arch=(any)
 url=https://github.com/kuroclef/Ricty
 license=(custom)
-depends=(fontconfig xorg-font-utils)
 makedepends=(fontforge git ttf-inconsolata)
 _miguver=20150712
 source=(git://github.com/kuroclef/Ricty.git
