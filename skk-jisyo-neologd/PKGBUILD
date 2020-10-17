@@ -1,0 +1,22 @@
+# Maintainer : Moriya Kazumi <kuroclef@gmail.com>
+
+pkgname=skk-jisyo-neologd
+pkgver=latest
+pkgrel=1
+pkgdesc='skk-jisyo-neologd.'
+arch=(x86_64)
+url=https://github.com/tokuhirom/skk-jisyo-neologd
+license=(custom)
+makedepends=(git)
+source=(git://github.com/tokuhirom/skk-jisyo-neologd.git)
+md5sums=(SKIP)
+
+pkgver() {
+  cd "$pkgname"
+  printf %s "$(date -I -ud "$(git log -1 --format=%ci)" | tr -d -)"
+}
+
+package() {
+  cd "$pkgname"
+  install -Dm 644 SKK-JISYO.neologd "$pkgdir"/usr/share/skk/SKK-JISYO.neologd
+}
