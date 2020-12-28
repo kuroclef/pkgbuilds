@@ -8,11 +8,10 @@ arch=(any)
 url=https://github.com/kuroclef/Ricty
 license=(custom)
 makedepends=(fontforge git ttf-inconsolata)
-_miguver=20150712
+_miguver=20200307
 source=(git://github.com/kuroclef/Ricty.git
-        http://dl.osdn.jp/mix-mplus-ipa/63545/migu-1m-"$_miguver".zip)
-md5sums=(SKIP
-         80046949f85da8177d6f1bb319f744f8)
+        https://dl.osdn.jp/mix-mplus-ipa/72511/migu-1m-"$_miguver".zip)
+md5sums=(SKIP aaf550f0b79ab8d2a902acb9f675b256)
 
 pkgver() {
   cd Ricty
