@@ -17,23 +17,21 @@ tee lscheckout <<\EOF
 #!/bin/bash
 pacman -Qkk | grep \)$ |& sort
 EOF
-chmod +x lscheckout
 
 tee lsdisowned <<\EOF
 #!/bin/bash
 comm -23 <(find /{etc,usr,var} \( -path /etc/\*cert\* -o -path /usr/share/mime -o -path /var/\*/\*man \) -prune -o -type d -printf %p/\\n -o -print 2>/dev/null | sort) <(pacman -Qlq | sort -u)
 EOF
-chmod +x lsdisowned
 
 tee lsorphaned <<\EOF
 #!/bin/bash
-comm -23 <(pacman -Qdq) <(pacman -Qeq | xargs -l pactree -lu | sort -u)
+comm -23 <(pacman -Qdq) <(pacman -Qeq | xargs -l pactree -lu | sort)
 EOF
-chmod +x lsorphaned
 
 tee lspackages <<\EOF
 #!/bin/bash
-comm -23 <(pacman -Qeq) <(pacman -Qgq base base-devel | sort -u)
+comm -23 <(pacman -Qeq) <(pacman -Qgq base-devel | sort -u)
 EOF
-chmod +x lspackages
+
+chmod +x lscheckout lsdisowned lsorphaned lspackages
 }
