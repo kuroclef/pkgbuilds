@@ -1,17 +1,17 @@
 # Maintainer : Moriya Kazumi <kuroclef@gmail.com>
 
 pkgname=ttf-hackgen
-pkgver=2.2.2
+pkgver=2.3.5
 pkgrel=1
 pkgdesc='プログラミングフォント 白源 (はくげん／HackGen)'
 arch=(any)
 url=https://github.com/yuru7/HackGen
 license=(custom)
-source=(https://github.com/yuru7/HackGen/releases/download/v"$pkgver"/HackGen_v"$pkgver".zip)
-md5sums=(223966ca10e548cef3e6e546e442db9f)
+source=(https://github.com/yuru7/HackGen/releases/download/v"$pkgver"/HackGenNerd_v"$pkgver".zip)
+md5sums=(23e80ba00cc2012384e46bc46a7eb643)
 
 package() {
-  cd HackGen_v"$pkgver"
-  install -d                   "$pkgdir"/usr/share/fonts/TTF
-  install -m 644 HackGen-*.ttf "$pkgdir"/usr/share/fonts/TTF
+  cd HackGenNerd_v"$pkgver"
+  install -d                       "$pkgdir"/usr/share/fonts/TTF
+  install -m 644 HackGenNerd-*.ttf "$pkgdir"/usr/share/fonts/TTF
 }
