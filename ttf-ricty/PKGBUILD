@@ -10,7 +10,7 @@ license=(custom)
 makedepends=(fontforge git ttf-inconsolata)
 _miguver=20200307
 source=(git://github.com/kuroclef/Ricty.git
-        https://dl.osdn.jp/mix-mplus-ipa/72511/migu-1m-"$_miguver".zip)
+        https://osdn.dl.osdn.net/mix-mplus-ipa/72511/migu-1m-"$_miguver".zip)
 md5sums=(SKIP aaf550f0b79ab8d2a902acb9f675b256)
 
 pkgver() {
