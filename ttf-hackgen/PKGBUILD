@@ -1,14 +1,14 @@
 # Maintainer : Moriya Kazumi <kuroclef@gmail.com>
 
 pkgname=ttf-hackgen
-pkgver=2.3.5
+pkgver=2.6.3
 pkgrel=1
 pkgdesc='プログラミングフォント 白源 (はくげん／HackGen)'
 arch=(any)
 url=https://github.com/yuru7/HackGen
 license=(custom)
 source=(https://github.com/yuru7/HackGen/releases/download/v"$pkgver"/HackGenNerd_v"$pkgver".zip)
-md5sums=(23e80ba00cc2012384e46bc46a7eb643)
+md5sums=(SKIP)
 
 package() {
   cd HackGenNerd_v"$pkgver"
